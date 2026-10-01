@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { Loader } from '../Loader';
 import { getUser } from '../../api';
 import { Todo } from '../../types/Todo';
@@ -74,11 +75,14 @@ export const TodoModal: React.FC<Props> = ({ todo, onClose }) => {
             </p>
 
             <p className="block" data-cy="modal-user">
-              {todo.completed ? (
-                <strong className="has-text-success">Done</strong>
-              ) : (
-                <strong className="has-text-danger">Planned</strong>
-              )}
+              <strong
+                className={classNames({
+                  'has-text-success': todo.completed,
+                  'has-text-danger': !todo.completed,
+                })}
+              >
+                {todo.completed ? 'Done' : 'Planned'}
+              </strong>
 
               {user && (
                 <>
